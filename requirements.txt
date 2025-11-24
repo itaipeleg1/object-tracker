@@ -8,3 +8,4 @@ scipy
 pyyaml
 scikit-image
 transformers
+tqdm

@@ -74,7 +74,7 @@ Track a target object (identified in the first frame) throughout a video sequenc
 
 **Architecture**:
 
-![VGG Architecture](docs/images/spatial matching.png)
+![VGG Architecture](docs/images/spatialmatching.png)
 
 
 **How It Works**:
@@ -85,6 +85,7 @@ Track a target object (identified in the first frame) throughout a video sequenc
 3. **Search**: For each template, perform spatial convolution over search frame features
 4. **Peak Detection**: Find highest correlation peak with PSR confidence scoring
 5. **Best Match**: Return bbox from template with highest PSR across all scales/rotations
+
 
 ![VGG Feature Matching](docs/images/redetect.png)
 
@@ -97,7 +98,7 @@ Track a target object (identified in the first frame) throughout a video sequenc
 ```python
 'redetector': {
     'device': 'cpu',                      # 'cuda' or 'cpu'
-    'vgg_layer': 30,                      # VGG layer (30=conv5_3, 23=conv4_3)
+    'vgg_layer': 30,                      # VGG layer (30=conv5_3, 23=conv4_3) Suprisingly Conv5 was a lot better than earlier layers
     'stride': 16,                         # Feature map stride
     'confidence_threshold': 12,           # Minimum PSR for valid detection
     'scales': [0.3, 0.5, 0.8, 1.0, 1.5], # Multi-scale search
@@ -243,7 +244,6 @@ object-tracker/
 
 - **OpenCV CSRT Tracker**: Lukezic et al., "Discriminative Correlation Filter with Channel and Spatial Reliability"
 - **VGG16**: Simonyan & Zisserman, "Very Deep Convolutional Networks for Large-Scale Image Recognition"
-- **Redetector method inspired by**: Jonghee Kim, "Robust template matching using scale-adaptive deep convolutional features"
 - **DINOv2**: Meta AI Research, "DINOv2: Learning Robust Visual Features without Supervision"
 
 ## Limitations:
