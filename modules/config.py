@@ -31,7 +31,7 @@ CONFIG = {
         'stride':16,  # Feature map stride (8 for conv3_3,  16 for conv4_3)
         
         # Confidence thresholds
-        'confidence_threshold': 10,  # Minimum PSR for valid detection
+        'confidence_threshold': 13,  # Minimum PSR for valid detection
 
         
         # Multi-scale search
@@ -66,7 +66,7 @@ CONFIG = {
         'min_cosine_similarity_for_update': 0.6,  # Minimum cosine similarity to update template
         'lost_frame_redetect_threshold': 30,  # Frames lost before re-detection attempt
         'template_update_interval': 90,  # Frames between template updates
-        'cosine_similarity_drift_threshold': 0.2,  # Threshold to detect drift
+        'cosine_similarity_drift_threshold': 0.6,  # Threshold to detect drift
         'input_resize_factor': 0.5,  # Resize factor for input video frames assign 0.5 for 4k and 1 for lower resolution
         'min_bbox_size': 50,  # Minimum bbox width/height for tracking and redetection (in pixels)
 

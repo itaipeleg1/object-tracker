@@ -84,7 +84,7 @@ Track a target object (identified in the first frame) throughout a video sequenc
 
 1. **Template Extraction**: Extract VGG features from initial ROI at multiple scales and rotations
 2. **Template Bank**: Store feature maps for each scale/rotation combination
-3. **Template Bank Update**: Update the Template Bank every n second with currect template
+3. **Template Bank Update**: Update the Template Bank every n second with current template
 3. **Search**: For each template, perform spatial convolution over search frame features
 4. **Peak Detection**: Find highest correlation peak with PSR confidence scoring
 5. **Best Match**: Return bbox from template with highest PSR across all scales/rotations
@@ -158,6 +158,12 @@ PSR = (peak_value - mean) / std
 ```
 
 **Key Mechanisms**:
+
+**Template Update**:
+- Periodically update the Template Bank every n second with current template
+- The current template is saved like the original one with rotations and scales
+- 
+ 
 
 **Drift Detection**:
 - Periodically compare current tracked region with original template
