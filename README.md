@@ -33,7 +33,7 @@ Track a target object (identified in the first frame) throughout a video sequenc
 - **Similarity Matrix**: Computes cosine similarity between segments to find matching scenes
 
 
-![Scene Similarity Heatmap](docs/images/heatmap.jpg)
+![Scene Similarity Heatmap](docs/images/heatmap.png)
 
 
 **Technical Details**:
