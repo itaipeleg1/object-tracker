@@ -99,7 +99,7 @@ Track a target object (identified in the first frame) throughout a video sequenc
   | **VGG Layer** | Feature abstraction level | `23` (conv4_3) or `30` (conv5_3) |   Earlier = more spatial detail, Later = more semantic     |    
   | **Stride**    | Feature map downsampling  |            `8, 16, 32`           | Must match the layer's pooling; affects localization precision |
 
-  **Quite suprisingly, conv5 worked suited mote the frone videos**
+  **Quite suprisingly, conv5 suited most of the drone videos**
 
 
 ![VGG Feature Matching](docs/images/redetect.png)
