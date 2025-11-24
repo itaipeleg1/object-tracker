@@ -81,13 +81,28 @@ Track a target object (identified in the first frame) throughout a video sequenc
 
 
 **How It Works**:
+ 
+  1. **Template Extraction**: Extract VGG features from initial ROI at multiple scales and rotations
+  2. **Template Bank Initialization**: Store feature maps for each scale/rotation combination
+  3. **Adaptive Template Update** (**FIFO** ):
+     - Every N frames: Check cosine similarity between current tracking and original template
+     - If similarity ≥ min_value: Valid tracking → Update current template (replaces old current template)
+     - If similarity < min_value: Drift detected → Trigger redetection
+     - **Original template stays permanent** as ground truth
+  4. **Search**: For each template in bank, perform spatial convolution over search frame features
+  5. **Peak Detection**: Find highest correlation peak with PSR confidence scoring
+  6. **Best Match**: Return bbox from template with highest PSR across all scales/rotations
 
-1. **Template Extraction**: Extract VGG features from initial ROI at multiple scales and rotations
-2. **Template Bank**: Store feature maps for each scale/rotation combination
-3. **Template Bank Update**: Update the Template Bank every n second with current template
-3. **Search**: For each template, perform spatial convolution over search frame features
-4. **Peak Detection**: Find highest correlation peak with PSR confidence scoring
-5. **Best Match**: Return bbox from template with highest PSR across all scales/rotations
+ **Important Configuration Notes:**
+
+  **This method requires careful tuning of two key parameters:**
+
+  |   Parameter   |          Purpose          |           Typical Values         |                           Impact                           |
+  |---------------|---------------------------|----------------------------------|------------------------------------------------------------|
+  | **VGG Layer** | Feature abstraction level | `23` (conv4_3) or `30` (conv5_3) |   Earlier = more spatial detail, Later = more semantic     |    
+  | **Stride**    | Feature map downsampling  |            `8, 16, 32`           | Must match the layer's pooling; affects localization precision |
+
+  **Quite suprisingly, conv5 worked suited mote the frone videos**
 
 
 ![VGG Feature Matching](docs/images/redetect.png)
@@ -159,16 +174,19 @@ PSR = (peak_value - mean) / std
 
 **Key Mechanisms**:
 
-**Template Update**:
-- Periodically update the Template Bank every n second with current template
-- The current template is saved like the original one with rotations and scales
-- 
+  **Adaptive Template Bank Update (FIFO)**:
+  - Original template (frame 0) is **permanent** - never replaced
+  - Current template updates every N frames via FIFO replacement
+  - Update only happens if cosine similarity with original ≥ min_value
+  - Each template stored with multiple scales and rotations 
+  - During redetection: Combined bank = original + current templates
  
 
 **Drift Detection**:
 - Periodically compare current tracked region with original template
 - If cosine similarity < threshold (0.6), trigger redetection
 - Prevents long-term drift accumulation
+
 
 **Intelligent Redetection**:
 - Only attempt when:
