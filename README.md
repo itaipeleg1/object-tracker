@@ -1,5 +1,8 @@
 # Drone Footage Object Tracking And redetection
 
+
+![Alt text](docs/images/gif-ezgif.com-video-to-gif-converter.gif)
+
 An object tracking system designed for drone footage and challenging scenarios where objects may leave and re-enter the frame. The system combines CSRT tracking with VGG16-based redetection and intelligent motion analysis to maintain robust tracking performance.
 
 ![Pipeline Overview](docs/images/pipeline.png)
