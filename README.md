@@ -84,10 +84,7 @@ Track a target object (identified in the first frame) throughout a video sequenc
  
   1. **Template Extraction**: Extract VGG features from initial ROI at multiple scales and rotations
   2. **Template Bank Initialization**: Store feature maps for each scale/rotation combination
-  3. **Adaptive Template Update** (**FIFO** ):
-     - Every N frames: Check cosine similarity between current tracking and original template
-     - If similarity ≥ min_value: Valid tracking → Update current template (replaces old current template)
-     - If similarity < min_value: Drift detected → Trigger redetection
+  3. **Adaptive Template Update** (**FIFO** )
      - **Original template stays permanent** as ground truth
   4. **Search**: For each template in bank, perform spatial convolution over search frame features
   5. **Peak Detection**: Find highest correlation peak with PSR confidence scoring
@@ -184,20 +181,20 @@ PSR = (peak_value - mean) / std
 
 **Drift Detection**:
 - Periodically compare current tracked region with original template
-- If cosine similarity < threshold (0.6), trigger redetection
+- If cosine similarity < threshold, trigger redetection
 - Prevents long-term drift accumulation
 
 
 **Intelligent Redetection**:
 - Only attempt when:
   - In still segment (motion < threshold)
-  - Scene similarity with initial frame > 0.6
+  - Scene similarity with initial frame > threshold
 - Uses combined template bank (current + original)
 
 
 **Minimum Bbox Enforcement**:
 - Prevents tracker from degrading on tiny bounding boxes
-- Expands bbox to minimum size (50×50) while preserving center
+- Expands bbox to minimum size (50×50) while preserving center, to keep all the bbox working with VGG feature extractor
 
 **Configuration**:
 ```python
