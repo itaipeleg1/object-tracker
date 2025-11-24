@@ -194,14 +194,24 @@ PSR = (peak_value - mean) / std
 
 1. **Prepare your video**:
    - Place video in `data/input/`
-   - Supported formats: `.mp4`, `.avi`, `.mov`
+   - Supported formats: `.mp4`
 
 2. **Configure tracking**:
    Edit `modules/config.py` to set ROI and parameters.
+   **Current Config** should work on most videos
 
 3. **Run tracker**:
 ```
-python run_tracker.py
+
+in run_tracker.py:
+```python
+if __name__ == "__main__":
+        pipeline = TrackingPipeline(video_path, output_path)
+        pipeline.run()
+
+```
+**Then**
+--- python run_tracker.py
 ```
 
 
