@@ -12,7 +12,7 @@ An object tracking system designed for drone footage and challenging scenarios w
 
 Track a target object (identified in the first frame) throughout a video sequence with the following challenges:
 - **Frame exit/re-entry**: Object may temporarily leave the frame
-- **Motion segmentation**: Drone footage requires identifying still segments for reliable redetection
+- **Motion segmentation**: Drone footage requires identifying segments where the drone flies around for reliable redetection
 - **Drift prevention**: Long-term tracking without accumulating errors
 - **Scale/rotation variance**: Object appearance changes across frames
 
